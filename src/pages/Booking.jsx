@@ -29,7 +29,7 @@ export default function Booking() {
                 >
                     Confirm Booking
                 </button>
-            </form>
+            </form>s
         </div>
     );
 }
