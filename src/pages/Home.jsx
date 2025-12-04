@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import HeaderBar from "../components/HeaderBar.jsx";
+import ExitOfferModal from "../components/ExitOfferModal.jsx";
 
 /*
   Home.jsx - robust hero slider using <img> elements + fallback SVG
@@ -15,6 +16,7 @@ const ORIGINAL_IMAGES = [
 ];
 
 export default function Home() {
+  const [offerOpen, setOfferOpen] = useState(true);
   // clone technique for infinite carousel: [last, ...real, first]
   const slides = [
     ORIGINAL_IMAGES[ORIGINAL_IMAGES.length - 1],
@@ -201,11 +203,15 @@ export default function Home() {
 
   return (
     <div className="page-home">
+      {/* {offerOpen && (
+        <ExitOfferModal open={offerOpen} onClose={() => setOfferOpen(false)} />
+      )} */}
       <TopBar />
       <SafeHeaderBar />
       {mainSection()}
       {brandBannerAndChatSection()}
       {ourBrandSection()}
+      {planYourEventsSection()}
       {aboutUsSection()}
     </div>
   );
@@ -254,6 +260,70 @@ export default function Home() {
       </div>
     </section>;
   }
+  
+  function planYourEventsSection() {
+  const items = [
+    {
+      title: "Woyage - Daycations",
+      image: "/assets/g1.png",
+      desc: "Replenish your spirit as you escape into your world of serenity...",
+    },
+    {
+      title: "Luxury Escapes",
+      image: "/assets/g2.png",
+      desc: "Unwind in curated luxurious settings crafted just for unforgettable experiences.",
+    },
+    {
+      title: "Offers & Promotions",
+      image: "/assets/g3.png",
+      desc: "Exclusive seasonal offers crafted just for you.",
+    },
+  ];
+
+  const [index, setIndex] = useState(0);
+
+  const next = () => setIndex((i) => (i + 1) % items.length);
+  const prev = () => setIndex((i) => (i - 1 + items.length) % items.length);
+
+  const left = items[(index - 1 + items.length) % items.length];
+  const center = items[index];
+  const right = items[(index + 1) % items.length];
+
+  return (
+    <section className="taj-carousel-section">
+      <h2 id="brands-heading" className="brands-title" style={{ fontSize: '2rem' }}>PLAN YOUR EVENTS</h2>
+
+      <div className="taj-carousel">
+        {/* LEFT */}
+        <div className="side-card">
+          <img src={left.image} className="side-img" />
+          <div className="side-border"></div>
+          <div className="side-label">{left.title}</div>
+          <button className="nav-arrow left" onClick={prev}>‹</button>
+        </div>
+
+        {/* CENTER */}
+        <div className="center-card">
+          <img src={center.image} className="center-img" />
+          <div className="center-box">
+            <h3>{center.title}</h3>
+            <p>{center.desc}</p>
+            <a href="#" className="more-link">MORE ›</a>
+          </div>
+        </div>
+
+        {/* RIGHT */}
+        <div className="side-card">
+          <img src={right.image} className="side-img" />
+          <div className="side-border"></div>
+          <div className="side-label">{right.title}</div>
+          <button className="nav-arrow right" onClick={next}>›</button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 
   function aboutUsSection() {
     return <section className="about-section" id="about">
@@ -415,11 +485,11 @@ export default function Home() {
       <div className="topbar-premium" role="banner" aria-label="Top contact bar">
         <div className="topbar-inner container">
           <div className="topbar-left">
-            <span className="topbar-item">✉️ centralreservations@hrchotel.com</span>
-            <span className="topbar-item">📞 Toll Free: 1800 209 1400</span>
+            <span className="topbar-item">✉️ info@bhrhotelsindia.com</span>
+            <span className="topbar-item">📞 Toll Free: +91 921128334</span>
           </div>
           <div className="topbar-right">
-            <span className="topbar-tag">Luxury Hospitality · Since 2005</span>
+            <span className="topbar-tag">Luxury Hospitality · Since 2010</span>
           </div>
         </div>
       </div>
