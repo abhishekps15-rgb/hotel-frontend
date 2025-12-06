@@ -1,4 +1,5 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
+import HeaderBar from "../components/HeaderBar.jsx";
 
 const HOTELS = [
   { id: 1, city: "Srinagar", name: "BHR Srinagar", state: "J&K", region: "North", x: 23, y: 12 },
@@ -16,6 +17,23 @@ const HOTELS = [
 const REGIONS = ["All", "North", "West", "South", "East"];
 
 export default function OurHotels() {
+  /* ------------------------------
+     HEADER SCROLL EFFECT
+  ------------------------------ */
+  const [scrolled, setScrolled] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    function handleScroll() {
+      setScrolled(window.scrollY > 40);
+    }
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  /* ------------------------------
+     HOTEL FILTERING LOGIC
+  ------------------------------ */
   const [search, setSearch] = useState("");
   const [region, setRegion] = useState("All");
   const [activeHotelId, setActiveHotelId] = useState(null);
@@ -29,6 +47,7 @@ export default function OurHotels() {
         h.city.toLowerCase().includes(q) ||
         h.name.toLowerCase().includes(q) ||
         h.state.toLowerCase().includes(q);
+
       return matchesRegion && matchesSearch;
     });
   }, [search, region]);
@@ -37,7 +56,19 @@ export default function OurHotels() {
 
   return (
     <main className="our-hotels-page">
-      {/* Hero heading */}
+      <HeaderBar
+        scrolled={scrolled || true}
+        dropdownOpen={dropdownOpen}
+        setDropdownOpen={setDropdownOpen}
+        bgColor="#e8e8e8"
+          />
+
+          {/* Spacer so content does not hide behind sticky header */}
+      <div style={{ height: "140px" }}></div>
+
+      {/* ------------------------------
+              HERO SECTION
+      ------------------------------ */}
       <section className="our-hotels-hero">
         <h1 className="our-hotels-title">Our Destinations</h1>
         <p className="our-hotels-sub">
@@ -68,11 +99,12 @@ export default function OurHotels() {
         </div>
       </section>
 
-      {/* Layout: Map + sidebar */}
+      {/* ------------------------------
+           MAP + SIDE LIST SECTION
+      ------------------------------ */}
       <section className="our-hotels-layout">
         {/* MAP */}
         <div className="our-hotels-map">
-          {/* Replace with your real image path */}
           <div className="oh-map-inner">
             <img
               src="/assets/india-map.jpg"
@@ -85,8 +117,7 @@ export default function OurHotels() {
               <button
                 key={hotel.id}
                 className={
-                  "oh-pin" +
-                  (hotel.id === activeHotelId ? " oh-pin-active" : "")
+                  "oh-pin" + (hotel.id === activeHotelId ? " oh-pin-active" : "")
                 }
                 style={{
                   left: `${hotel.x}%`,
@@ -100,7 +131,6 @@ export default function OurHotels() {
             ))}
           </div>
 
-          {/* Floating tooltip card */}
           {activeHotel && (
             <div className="oh-pin-tooltip">
               <h3>{activeHotel.city}</h3>
@@ -138,10 +168,9 @@ export default function OurHotels() {
                 <div className="oh-list-hotel-name">{hotel.name}</div>
               </button>
             ))}
+
             {filteredHotels.length === 0 && (
-              <div className="oh-empty">
-                No destinations found. Try clearing filters.
-              </div>
+              <div className="oh-empty">No destinations found.</div>
             )}
           </div>
         </aside>

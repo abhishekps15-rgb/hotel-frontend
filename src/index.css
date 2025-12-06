@@ -1532,9 +1532,9 @@ input:focus {
    =========================== */
 
 .our-hotels-page {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 40px 32px 80px;
+    max-width: 100%;
+    margin: 40px auto;
+    padding-bottom: 80px;
 }
 
 .our-hotels-hero {
@@ -1595,6 +1595,8 @@ input:focus {
 /* Layout */
 
 .our-hotels-layout {
+    margin: 0px auto;
+    max-width: 1600px;
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 28px;

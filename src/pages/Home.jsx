@@ -501,7 +501,11 @@ useEffect(() => {
       return fallbackHeader();
     }
         try {
-          return <HeaderBar scrolled={scrolled} dropdownOpen={dropdownOpen} setDropdownOpen={setDropdownOpen} />;
+          return <HeaderBar
+            scrolled={scrolled}
+            dropdownOpen={dropdownOpen}
+            setDropdownOpen={setDropdownOpen}
+            bgColor="#ffffff" />;
     } catch (e) {
       console.warn("HeaderBar render failed, using fallback header", e);
       return fallbackHeader();

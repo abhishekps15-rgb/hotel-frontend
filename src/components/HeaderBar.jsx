@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function HeaderBar({ scrolled, dropdownOpen, setDropdownOpen }) {
+export default function HeaderBar({ scrolled, dropdownOpen, setDropdownOpen, bgColor = "#ffffff" }) {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false); // ← NEW for Hamburger menu
   const dropdownRef = useRef(null);
@@ -20,7 +20,10 @@ export default function HeaderBar({ scrolled, dropdownOpen, setDropdownOpen }) {
   const toggleMenu = () => setMenuOpen((prev) => !prev);
 
   return (
-    <div className={`header-bar ${scrolled ? "header-solid" : "header-transparent"}`}>
+    <div className={`header-bar ${scrolled ? "header-solid" : "header-transparent"}`}
+      style={{
+        background: scrolled ? bgColor : "transparent"
+      }}>
        {topBar()}
       <div className="header-inner container">
        
