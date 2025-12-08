@@ -6,7 +6,9 @@
    GLOBAL RESET & BASE
    =========================================================== */
 :root {
-    --brand-dark: #6A2C2C;
+    --brand-light: #2b374d;
+    --brand-logo-dark-color: #1a2435;
+    --brand-logo-light-color: #2b374d;
     --brand-gold: #cfa349;
     --brand-gold-dark: #a6781f;
     --accent-blue: #1976d2;
@@ -68,7 +70,7 @@ button {
    =========================================================== */
 .topbar-premium {
     width: 100%;
-    background: linear-gradient(to right, #4d1f1f, #6A2C2C, #4d1f1f);
+    background: linear-gradient(to right, #cca15f, #ab7836, #bd8d45);
     color: #f9f9f9;
     font-size: 14px;
     letter-spacing: 0.4px;

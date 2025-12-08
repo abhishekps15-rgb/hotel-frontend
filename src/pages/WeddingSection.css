@@ -4,8 +4,7 @@
 .stats-banner {
     max-width: 1400px;
     margin: 40px auto;
-    /* center the banner */
-    background: #6A2C2C;
+    background: linear-gradient(135deg, var(--brand-logo-light-color), var(--brand-logo-dark-color));
     padding: 20px 0;
     margin-top: 40px;
 }
@@ -79,7 +78,7 @@
     text-align: center;
     font-size: 36px;
     font-family: "Georgia", serif;
-    color: #6A2C2C;
+    color: var(--brand-logo-dark-color);
     margin-bottom: 40px;
     font-weight: bold;
 }
@@ -134,7 +133,7 @@
 
 /* SUBMIT BUTTON */
 .submit-btn {
-    background: #6A2C2C;
+    background: var(--brand-logo-light-color);  
     color: #fff;
     padding: 16px;
     border: none;
@@ -157,7 +156,7 @@
 }
 
 .showaround-btn {
-    background: #6A2C2C;
+    background: var(--brand-logo-light-color);  
     color: white;
     padding: 14px 30px;
     border-radius: 6px;
@@ -195,7 +194,7 @@
 .wedding-title {
     font-size: 36px;
     font-family: "Georgia", serif;
-    color: #6A2C2C;
+    color: var(--brand-logo-dark-color);
     margin-bottom: 20px;
 }
 
@@ -230,7 +229,7 @@
 .wedding-text h3 {
     font-size: 28px;
     font-family: "Georgia", serif;
-    color: #6A2C2C;
+    color: var(--brand-logo-dark-color);
     margin-bottom: 20px;
 }
 
@@ -281,7 +280,7 @@
     padding: 20px 0;
     font-size: 20px;
     font-weight: 600;
-    color: #6a2c2c;
+    color: var(--brand-logo-dark-color);
     /* Brown text */
     background: #ffffff;
 }
@@ -292,6 +291,6 @@
 
 .wedding-icon {
     font-size: 22px;
-    color: #6a2c2c;
+    color: var(--brand-logo-light-color);
     /* Brown icon */
 }
