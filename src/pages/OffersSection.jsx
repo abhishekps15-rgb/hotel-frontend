@@ -78,7 +78,7 @@ export default function OffersSection() {
       {/* Spacer so content does not hide behind sticky header */}
       <div style={{ height: "140px" }}></div>
 
-      <h1 className="offers-heading">
+      <h1 className="section-heading">
         --------     EXCLUSIVE OFFERS     ---------
       </h1>
 

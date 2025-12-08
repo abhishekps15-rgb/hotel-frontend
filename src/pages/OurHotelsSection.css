@@ -1,0 +1,147 @@
+/* ================================
+   DESCRIPTION SECTION
+================================ */
+.our-hotels-descriptions {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 30px;
+}
+
+.our-hotels-descriptions p {
+    font-size: 18px;
+    line-height: 1.9;
+    color: #333;
+}
+
+.our-hotels-container p:last-child {
+    margin-bottom: 0;
+}
+
+.offer-image {
+    width: 65%;
+    height: auto;
+    display: block;
+    margin: 40px auto;
+}
+
+.event-section {
+    width: 100%;
+    padding: 50px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.event-grid {
+    width: 85%;
+    max-width: 1300px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.event-column {
+    width: 30%;
+}
+
+.event-title {
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #b8860b;
+    /* Gold aesthetic */
+    margin-bottom: 25px;
+}
+
+.event-icon {
+    font-size: 1.9rem;
+    margin-left: 8px;
+}
+
+.event-list {
+    list-style: disc;
+    padding-left: 40px;
+}
+
+.event-list li {
+    font-size: 1.2rem;
+    color: #8c6239;
+    /* Soft gold/brown */
+    margin-bottom: 12px;
+    line-height: 1.7;
+}
+
+.leisure-section {
+  width: 100%;
+  padding: 0px 0 80px;
+  text-align: center;
+}
+
+.leisure-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #b8860b; /* gold */
+  margin-bottom: 40px;
+}
+
+.leisure-icon {
+  font-size: 2rem;
+  margin-left: 8px;
+}
+
+/* GRID */
+.leisure-grid {
+  width: 85%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-evenly;
+  text-align: left;
+}
+
+.leisure-column {
+  width: 10%;
+}
+
+.leisure-heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* LIST */
+.leisure-list {
+  list-style: disc;
+  padding-left: 25px;
+}
+
+.leisure-list li {
+  margin-bottom: 10px;
+}
+
+.leisure-list a {
+  color: #b8860b; /* gold text */
+  font-size: 1.1rem;
+  text-decoration: none;
+}
+
+.leisure-list a:hover {
+  text-decoration: underline;
+}
+
+/* BOOK BUTTON */
+.leisure-btn-wrapper {
+  margin-top: 40px;
+}
+
+.leisure-btn {
+  background: #b8860b;
+  color: white;
+  padding: 12px 32px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.leisure-btn:hover {
+  background: #a0740a;
+}

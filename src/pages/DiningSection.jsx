@@ -65,7 +65,7 @@ export default function DiningSection() {
       {/* Spacer so content does not hide behind sticky header */}
       <div style={{ height: "140px" }}></div>
       
-        <h1 className="offers-heading">--------     EXCLUSIVE OFFERS     ---------</h1>
+        <h1 className="section-heading">--------     EXCLUSIVE OFFERS     ---------</h1>
 
       <section className="offers-section">
         

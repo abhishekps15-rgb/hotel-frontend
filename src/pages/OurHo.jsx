@@ -77,7 +77,7 @@ export default function OurHotels() {
               HERO SECTION
       ------------------------------ */}
       <section className="our-hotels-hero">
-        <h1 className="our-hotels-title">Our Destinations</h1>
+        <h1 className="section-heading">Our Destinations</h1>
         <p className="our-hotels-sub">
           Embark on a journey through the heart of India with BHR Hotels, where every destination
           blends vibrant culture, rich heritage, and warm Indian hospitality.

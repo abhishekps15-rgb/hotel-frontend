@@ -57,7 +57,7 @@ const items = [
       {/* Spacer so content does not hide behind sticky header */}
       <div style={{ height: "140px" }}></div>
       
-      <h1 className="offers-heading">--------     Make your Wedding Special With Us     ---------</h1>
+      <h1 className="section-heading">--------     Make your Wedding Special With Us     ---------</h1>
       
       <section className="video-section">
         <video width="100%" height="auto" controls>
@@ -85,10 +85,6 @@ const items = [
 
   </div>
 </section>
-
-      {/* ===== WEDDING / FEATURES STATS SECTION ===== */}
-
-
 {/* ===== DESCRIPTION PARAGRAPH ===== */}
 <section className="wedding-description">
   <p>

@@ -9,6 +9,8 @@
     --brand-light: #2b374d;
     --brand-logo-dark-color: #1a2435;
     --brand-logo-light-color: #2b374d;
+    --brand-logo-gradient: linear-gradient(270deg, #2b374d, #3f4b63);
+    --brand-blue-gradient: linear-gradient(270deg, #2b374d, #46546f);;
     --brand-gold: #cfa349;
     --brand-gold-dark: #a6781f;
     --accent-blue: #1976d2;
@@ -1913,4 +1915,13 @@ input:focus {
         text-align: left;
         font-size: 16px;
     }
+}
+
+.section-heading {
+    text-align: center;
+    font-family: "Georgia", serif;
+    font-size: 36px;
+    color: var(--brand-gold-dark);
+    margin-bottom: 14px;
+    margin-top: 50px;
 }
