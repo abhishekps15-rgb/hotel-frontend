@@ -3,64 +3,64 @@ import HotelCard from "../components/HotelCard";
 import { fetchHotels } from "../utils/api";
 
 export default function HotelList() {
-    console.log('HotelList component rendering...');
-    const [hotels, setHotels] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    
-    console.log('Current state:', { loading, error, hotels });
+  console.log("HotelList component rendering...");
+  const [hotels, setHotels] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const getHotels = async () => {
-            try {
-                console.log('Fetching hotels from API...');
-                const data = await fetchHotels();
-                console.log('API Response:', data);
-                setHotels(data);
-                setError(null);
-            } catch (err) {
-                console.error("Failed to fetch hotels:", err);
-                console.error("Error details:", err.response?.data || err.message);
-                setError("Failed to load hotels. Please try again later.");
-            } finally {
-                setLoading(false);
-            }
-        };
+  console.log("Current state:", { loading, error, hotels });
 
-        getHotels();
-    }, []);
+  useEffect(() => {
+    const getHotels = async () => {
+      try {
+        console.log("Fetching hotels from API...");
+        const data = await fetchHotels();
+        console.log("API Response:", data);
+        setHotels(data);
+        setError(null);
+      } catch (err) {
+        console.error("Failed to fetch hotels:", err);
+        console.error("Error details:", err.response?.data || err.message);
+        setError("Failed to load hotels. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    if (loading) {
-        return (
-            <div className="container">
-                <h1>Hotels</h1>
-                <p>Loading hotels...</p>
-            </div>
-        );
-    }
+    getHotels();
+  }, []);
 
-    if (error) {
-        return (
-            <div className="container">
-                <h1>Hotels</h1>
-                <div className="alert alert-danger">{error}</div>
-            </div>
-        );
-    }
-
+  if (loading) {
     return (
-        <div className="container">
-            <h1>Hotels</h1>
-            
-            {hotels.length === 0 ? (
-                <p>No hotels found.</p>
-            ) : (
-                <div style={{ display: "flex", flexWrap: "wrap" }}>
-                    {hotels.map((h) => (
-                        <HotelCard key={h.id} hotel={h} />
-                    ))}
-                </div>
-            )}
-        </div>
+      <div className="container">
+        <h1>Hotels</h1>
+        <p>Loading hotels...</p>
+      </div>
     );
+  }
+
+  if (error) {
+    return (
+      <div className="container">
+        <h1>Hotels</h1>
+        <div className="alert alert-danger">{error}</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="container">
+      <h1>Hotels</h1>
+
+      {hotels.length === 0 ? (
+        <p>No hotels found.</p>
+      ) : (
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
+          {hotels.map((h) => (
+            <HotelCard key={h.id} hotel={h} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }

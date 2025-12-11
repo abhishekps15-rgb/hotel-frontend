@@ -14,39 +14,33 @@ export default function HeaderBar({
   const [selectedCity, setSelectedCity] = useState("");
   const [cityHotels, setCityHotels] = useState([]);
 
-  const openCityDialog = (city) => {
-    setSelectedCity(city);
+  const [cities, setCities] = useState([]); // <-- store cities from API
 
-    // Dummy example data (Replace with API data)
-    setCityHotels([
-      {
-        name: "Pride Plaza Ahmedabad",
-        price: "5,460",
-        img: "/assets/g3.png",
-      },
-      {
-        name: "Biznotel by Pride Motera, Ahmedabad",
-        price: "7,605",
-        img: "/assets/g4.png",
-      },
-    ]);
+  const navigate = useNavigate();
+  const dropdownRef = useRef(null);
 
+  // ------------------------------------------------------------------
+  // 1️⃣  FETCH CITIES FROM API
+  // ------------------------------------------------------------------
+  useEffect(() => {
+    fetch("http://localhost:8080/api/cities/")
+      .then((res) => res.json())
+      .then((data) => {
+        setCities(data);
+      })
+      .catch((err) => console.error("Error loading cities:", err));
+  }, []);
+
+  // ------------------------------------------------------------------
+  // 2️⃣ OPEN CITY MODAL ON CITY CLICK
+  // ------------------------------------------------------------------
+  const openCityDialog = (cityObj) => {
+    setSelectedCity(cityObj.name);
+    setCityHotels(cityObj.hotels);
     setCityModalOpen(true);
   };
 
-  const navigate = useNavigate();
-  const [menuOpen, setMenuOpen] = useState(false); // ← NEW for Hamburger menu
-  const dropdownRef = useRef(null);
-  const hotels = [
-    "Jim Corbett",
-    "Delhi",
-    "Bengaluru",
-    "Hyderabad",
-    "Goa",
-    "Jaipur",
-  ];
-
-  // Close dropdowns when clicking outside
+  // Close dropdown when user clicks outside
   useEffect(() => {
     function handleClickOutside(e) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -58,6 +52,19 @@ export default function HeaderBar({
   }, []);
 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // ------------------------------------------------------------------
+  // COMPUTE GRID COLUMNS BASED ON NUMBER OF CITIES
+  // ------------------------------------------------------------------
+  const gridClass =
+    cities.length > 30
+      ? "cols-4"
+      : cities.length > 20
+      ? "cols-3"
+      : cities.length > 10
+      ? "cols-2"
+      : "cols-1";
 
   return (
     <div
@@ -69,8 +76,9 @@ export default function HeaderBar({
       }}
     >
       {topBar()}
+
       <div className="header-inner container">
-        {/* Logo */}
+        {/* LOGO */}
         <div className="brand-wrapper">
           <img
             src="/assets/hotel-logo.jpeg"
@@ -82,8 +90,9 @@ export default function HeaderBar({
         </div>
 
         {/* MAIN NAVIGATION */}
-        <nav className="main-nav" aria-label="Main navigation">
+        <nav className="main-nav">
           <ul>
+            {/* DROPDOWN LIST */}
             <li
               ref={dropdownRef}
               className="nav-item has-dropdown"
@@ -93,114 +102,94 @@ export default function HeaderBar({
               <button className="nav-link">Find Your Hotel ▾</button>
 
               {dropdownOpen && (
-                <div className="hotel-dropdown" aria-hidden={!dropdownOpen}>
+                <div className="hotel-dropdown">
                   <div className="hotel-dropdown-header">
                     Popular Destinations
                   </div>
-                  {/* <div
-                    className={`hotel-dropdown-list ${
-                      hotels.length > 30
-                        ? "cols-4"
-                        : hotels.length > 20
-                        ? "cols-3"
-                        : hotels.length > 10
-                        ? "cols-2"
-                        : "cols-1"
-                    }`}
-                  >
-                    {hotels.map((city, index) => (
-                      <Link key={index} to={`/hotels/${city.toLowerCase()}`}>
-                        {city}
-                      </Link>
-                    ))}
-                  </div> */}
 
-                  <div
-                    className={`hotel-dropdown-list ${
-                      hotels.length > 30
-                        ? "cols-4"
-                        : hotels.length > 20
-                        ? "cols-3"
-                        : hotels.length > 10
-                        ? "cols-2"
-                        : "cols-1"
-                    }`}
-                  >
-                    {hotels.map((city) => (
-                      <Link
-                        key={city}
+                  {/* GRID LIST OF CITIES FROM API */}
+                  <div className={`hotel-dropdown-list ${gridClass}`}>
+                    {cities.map((cityObj) => (
+                      <span
+                        key={cityObj.id}
                         className="city-item"
-                        onClick={() => openCityDialog(city)}
+                        onClick={() => openCityDialog(cityObj)}
+                        style={{ cursor: "pointer", color: "#cca15f" }}
                       >
-                        {city}
-                      </Link>
+                        {cityObj.name}
+                      </span>
                     ))}
                   </div>
 
-                  <button className="hotel-dropdown-all">
+                  {/* <button className="hotel-dropdown-all">
                     View all hotels →
-                  </button>
+                  </button> */}
                 </div>
               )}
             </li>
 
+            {/* OTHER NAV BUTTONS */}
             <button
               className="nav-link"
               onClick={() =>
                 navigate("/our-hotels", { state: { contactInfo } })
               }
             >
-              Our Hotels{" "}
+              Our Hotels
             </button>
+
             <button
               className="nav-link"
               onClick={() => navigate("/offers", { state: { contactInfo } })}
             >
               Offers
             </button>
+
             <button
               className="nav-link"
               onClick={() => navigate("/weddings", { state: { contactInfo } })}
             >
               Weddings
             </button>
+
             <button
               className="nav-link"
               onClick={() => navigate("/events", { state: { contactInfo } })}
             >
               Plan Your Events
             </button>
+
             <button
               className="nav-link"
               onClick={() => navigate("/dining", { state: { contactInfo } })}
             >
               Dining
             </button>
+
             <button
               className="nav-link"
               onClick={() => navigate("/news", { state: { contactInfo } })}
             >
               Media & News
             </button>
+
             <button className="nav-link" onClick={() => navigate("/")}>
               Partner With Us
             </button>
           </ul>
         </nav>
 
-        {/* HAMBURGER MENU + BOOK NOW */}
+        {/* HAMBURGER + BOOK NOW */}
         <div className="header-cta">
-          {/* Hamburger first */}
           <button className="hamburger-btn" onClick={toggleMenu}>
             ☰
           </button>
 
-          {/* Then BOOK NOW */}
           <button className="book-now">BOOK NOW</button>
         </div>
       </div>
 
-      {/* HAMBURGER MENU DROPDOWN */}
+      {/* HAMBURGER MENU PANEL */}
       {menuOpen && (
         <div className="hamburger-dropdown">
           <Link to="/contact">Contact Us</Link>
@@ -212,7 +201,7 @@ export default function HeaderBar({
         </div>
       )}
 
-      {/* ADD THE CITY HOTELS MODAL HERE */}
+      {/* CITY HOTELS POPUP */}
       <CityHotelsModal
         open={cityModalOpen}
         onClose={() => setCityModalOpen(false)}
@@ -222,14 +211,11 @@ export default function HeaderBar({
     </div>
   );
 
+  // TOP BAR FUNCTION
   function topBar() {
     return (
       <div className="header-top">
-        <div
-          className="topbar-premium"
-          role="banner"
-          aria-label="Top contact bar"
-        >
+        <div className="topbar-premium">
           <div className="topbar-inner container">
             <div className="topbar-left">
               <span className="topbar-item">
@@ -239,6 +225,7 @@ export default function HeaderBar({
                 <FaPhoneAlt /> For Reservation’s: {contactInfo.reservationPhone}
               </span>
             </div>
+
             <div className="topbar-right">
               <span className="topbar-tag">
                 Luxury Hospitality · Since {contactInfo.companySince}

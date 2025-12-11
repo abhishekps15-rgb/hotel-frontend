@@ -1,37 +1,59 @@
 import React, { useState, useEffect } from "react";
 import HeaderBar from "../components/HeaderBar.jsx";
-import Footer from "../components/Footer.jsx";
 import "./OffersSection.css";
+import Footer from "../components/Footer.jsx";
 import { useLocation } from "react-router-dom";
 
 export default function OffersSection() {
+  const [scrolled, setScrolled] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
   const [offers, setOffers] = useState([]);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
   const contactInfo = location.state?.contactInfo || {};
-
   const BASE_URL = "http://localhost:8080";
+  useEffect(() => {
+    function handleScroll() {
+      setScrolled(window.scrollY > 40);
+    }
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
+  /* ======================================================
+     FETCH OFFERS FROM BACKEND /api/offers
+  ====================================================== */
   useEffect(() => {
     async function loadOffers() {
       try {
         const res = await fetch(`${BASE_URL}/api/offers`);
-
         if (!res.ok) throw new Error("Failed to fetch offers");
 
-        let data = await res.json();
-
-        // Clean image URLs (remove double slashes)
-        data = data.map((offer) => ({
-          ...offer,
-          img: offer.img.replace("//", "/")
-        }));
-
+        const data = await res.json();
         setOffers(data);
-
       } catch (err) {
-        console.error("Error fetching offers:", err);
+        console.error("Offers API Error → Using fallback", err);
 
+        // FALLBACK DATA IF API FAILS
+        setOffers([
+          {
+            id: 1,
+            title: "PERFECT STAYCATIONS – THIS JOYFUL SEASON",
+            desc: "This holiday season, enjoy the perfect staycation with exclusive savings crafted just for you.",
+            validity: "04 Dec 2025 – 11 Jan 2026",
+            img: "/assets/g1.png",
+            loginBtn: "LOGIN / JOIN",
+          },
+          {
+            id: 2,
+            title: "SUITE SURPRISES - MEMBER ONLY",
+            desc: "Indulge in a stay that goes beyond the ordinary...",
+            validity: "Round the Year",
+            img: "/assets/g2.png",
+            loginBtn: "LOGIN / JOIN",
+          },
+        ]);
       } finally {
         setLoading(false);
       }
@@ -42,16 +64,15 @@ export default function OffersSection() {
 
   return (
     <main className="offers-page">
-
       <HeaderBar
         scrolled={true}
-        dropdownOpen={false}
-        setDropdownOpen={() => {}}
+        dropdownOpen={dropdownOpen}
+        setDropdownOpen={setDropdownOpen}
         bgColor="#e8e8e8"
         contactInfo={contactInfo}
       />
 
-      {/* Top spacer */}
+      {/* Spacer so content does not hide behind sticky header */}
       <div style={{ height: "140px" }}></div>
 
       <h1 className="section-heading">
@@ -74,7 +95,7 @@ export default function OffersSection() {
             width: "100px",
             height: "3px",
             backgroundColor: "#cfa349",
-            marginLeft: "10px",
+            marginRight: "10px",
             marginBottom: "10px",
           }}
         />
@@ -89,24 +110,25 @@ export default function OffersSection() {
           <div className="offers-grid">
             {offers.map((offer) => (
               <div key={offer.id} className="offer-card">
-                
                 {/* IMAGE */}
                 <img
                   src={`${BASE_URL}${offer.img}`}
                   alt={offer.title}
                   className="offer-img"
                 />
-
                 {/* CONTENT */}
                 <div className="offer-content">
                   <h3 className="offer-title">{offer.title}</h3>
+
                   <p className="offer-desc">{offer.desc}</p>
+
                   <p className="offer-validity">
                     Validity: <strong>{offer.validity}</strong>
                   </p>
 
                   <div className="offer-actions">
                     <button className="offer-btn">{offer.loginBtn}</button>
+
                     <button className="offer-more">
                       KNOW MORE <span>›</span>
                     </button>
