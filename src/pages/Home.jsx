@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import HeaderBar from "../components/HeaderBar.jsx";
 import Footer from "../components/Footer.jsx";
 import { FaEnvelope, FaPhoneAlt } from "react-icons/fa";
+import BookingSearchBox from "./BookingSearchBox.jsx";
 
 /*
   HOME.JSX - OPTION A (Backend Driven + Same Layout)
@@ -129,6 +130,7 @@ export default function Home() {
 
   const [scrolled, setScrolled] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [showHeroBooking, setShowHeroBooking] = useState(true);
 
   // Auto slide
   useEffect(() => {
@@ -237,6 +239,7 @@ export default function Home() {
         dropdownOpen={dropdownOpen}
         setDropdownOpen={setDropdownOpen}
         contactInfo={home.contactSection}
+        setShowHeroBooking={setShowHeroBooking}
       />
 
       {heroSection()}
@@ -266,19 +269,16 @@ export default function Home() {
               : "none",
           }}
         >
-          {/* Clone last image at beginning */}
           <div className="hero-slide">
             <img src={home.heroImages[home.heroImages.length - 1]} />
           </div>
 
-          {/* Real images */}
           {home.heroImages.map((src, i) => (
             <div key={i} className="hero-slide">
               <img src={src} />
             </div>
           ))}
 
-          {/* Clone first image at end */}
           <div className="hero-slide">
             <img src={home.heroImages[0]} />
           </div>
@@ -290,6 +290,9 @@ export default function Home() {
         <button className="slider-arrow right" onClick={next}>
           ›
         </button>
+
+        {/* SHOW BOOKING BOX ONLY IF NOT IN POPUP MODE */}
+        {showHeroBooking && <BookingSearchBox />}
 
         <div className="slider-dots">
           {home.heroImages.map((_, i) => (

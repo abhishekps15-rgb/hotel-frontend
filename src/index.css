@@ -2073,3 +2073,139 @@ input:focus {
     font-size: 14px;
   }
 }
+
+/* =======================================================
+   FULL SCREEN BOOKING DIALOG 
+   ======================================================= */
+
+.dialog-close-btn {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  background: transparent;
+  font-size: 26px;
+  border: none;
+  cursor: pointer;
+  color: #333;
+}
+
+.dialog-close-btn:hover {
+  color: #000;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .fullscreen-dialog {
+    width: 95%;
+    padding: 25px 20px;
+  }
+}
+
+/* Wrap BookingSearchBox when shown inside fullscreen dialog */
+.booking-dialog-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ===========================================================
+   FULL SCREEN BOOKING DIALOG
+   =========================================================== */
+
+.booking-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50000;
+}
+
+.booking-dialog {
+  width: 80%;
+  max-width: 1200px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 40px 35px;
+  border-radius: 10px;
+  position: relative;
+  color: #fff;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* Close button */
+.booking-dialog-close {
+  position: absolute;
+  right: 22px;
+  top: 18px;
+  font-size: 26px;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.booking-dialog-content {
+  margin-top: 20px;
+}
+
+.booking-box-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.booking-field {
+  width: 32%;
+  display: flex;
+  flex-direction: column;
+}
+
+.booking-field label {
+  font-size: 16px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.booking-input {
+  padding: 14px 16px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  color: #222;
+}
+
+.booking-action {
+  text-align: center;
+}
+
+.booking-submit {
+  width: 100%;
+  background: #cfa349;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.booking-submit:hover {
+  background: #a6781f;
+}
+
+.booking-price {
+  margin-top: 10px;
+  color: #ddd;
+}
+
+/* Mobile responsive */
+@media (max-width: 800px) {
+  .booking-box-row {
+    flex-direction: column;
+  }
+  .booking-field {
+    width: 100%;
+  }
+}
