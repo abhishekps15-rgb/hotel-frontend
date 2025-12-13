@@ -3,20 +3,17 @@ import HeaderBar from "../components/HeaderBar.jsx";
 import "./OurHotelsSection.css";
 import Footer from "../components/Footer.jsx";
 import { useLocation } from "react-router-dom";
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaTwitter,
-  FaYoutube,
-  FaLinkedinIn,
-  FaUser,
-  FaEnvelope,
-  FaPhoneAlt,
-} from "react-icons/fa";
+import { FaFacebookF } from "react-icons/fa";
+import { bookingDialog } from "../components/bookingDialog.jsx";
 
 export default function OurHotelsSection() {
   const [scrolled, setScrolled] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const [showBooking, setShowBooking] = useState(true);
+  const [bookingOpen, setBookingOpen] = useState(false);
+  const [cities, setCities] = useState([]);
+  const [selectedHotels, setSelectedHotels] = useState([]);
 
   const location = useLocation();
   const contactInfo = location.state?.contactInfo || {};
@@ -38,6 +35,19 @@ export default function OurHotelsSection() {
       setLoading(false);
     }
     loadHotels();
+  }, []);
+
+  useEffect(() => {
+    async function loadCities() {
+      try {
+        const res = await fetch(`${BASE_URL}/api/cities/`);
+        const data = await res.json();
+        setCities(data);
+      } catch (err) {
+        console.error("Cities API error:", err);
+      }
+    }
+    loadCities();
   }, []);
 
   useEffect(() => {
@@ -86,6 +96,7 @@ export default function OurHotelsSection() {
         setDropdownOpen={setDropdownOpen}
         bgColor="#e8e8e8"
         contactInfo={contactInfo}
+        setShowBooking={setShowBooking}
       />
 
       {/* Spacer so content does not hide behind sticky header */}
@@ -165,7 +176,7 @@ export default function OurHotelsSection() {
           {/* Long Weekends */}
           <div className="event-column">
             <h2 className="event-title">
-              {longWeekends.title} <span className="event-icon"></span>
+              {longWeekends.title} 🥥<span className="event-icon"></span>
               {/* <img
                 src={BASE_URL + longWeekends.iconUrl}
                 className="event-icon-img"
@@ -188,10 +199,10 @@ export default function OurHotelsSection() {
           <div className="leisure-column">
             <h3 className="leisure-heading">
               {leisure.cultural.title}
-              <img
+              {/* <img
                 src={BASE_URL + leisure.cultural.iconUrl}
                 className="event-icon-img"
-              />
+              /> */}
             </h3>
             <ul className="leisure-list">
               {leisure.cultural.locations.map((loc, i) => (
@@ -204,10 +215,10 @@ export default function OurHotelsSection() {
           <div className="leisure-column">
             <h3 className="leisure-heading">
               {leisure.beach.title}
-              <img
+              {/* <img
                 src={BASE_URL + leisure.beach.iconUrl}
                 className="event-icon-img"
-              />
+              /> */}
             </h3>
             <ul className="leisure-list">
               {leisure.beach.locations.map((loc, i) => (
@@ -220,10 +231,10 @@ export default function OurHotelsSection() {
           <div className="leisure-column">
             <h3 className="leisure-heading">
               {leisure.hillside.title}
-              <img
+              {/* <img
                 src={BASE_URL + leisure.hillside.iconUrl}
                 className="event-icon-img"
-              />
+              /> */}
             </h3>
             <ul className="leisure-list">
               {leisure.hillside.locations.map((loc, i) => (
@@ -236,10 +247,10 @@ export default function OurHotelsSection() {
           <div className="leisure-column">
             <h3 className="leisure-heading">
               {leisure.royal.title}
-              <img
+              {/* <img
                 src={BASE_URL + leisure.royal.iconUrl}
                 className="event-icon-img"
-              />
+              /> */}
             </h3>
             <ul className="leisure-list">
               {leisure.royal.locations.map((loc, i) => (
@@ -248,11 +259,59 @@ export default function OurHotelsSection() {
             </ul>
           </div>
         </div>
+      </section>
 
-        <div className="leisure-btn-wrapper">
-          <button className="leisure-btn">BOOK NOW</button>
+      <section className="leisure-section">
+        <h2 className="leisure-title">{corporate.title} 💻</h2>
+
+        <div className="leisure-grid">
+          <div className="leisure-column">
+            <ul className="leisure-list">
+              {corporate.staycation.map((loc, i) => (
+                <li key={i}>{loc}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="leisure-column">
+            <ul className="leisure-list">
+              {corporate.workcation.map((loc, i) => (
+                <li key={i}>{loc}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="leisure-column">
+            <ul className="leisure-list">
+              {corporate.city.map((loc, i) => (
+                <li key={i}>{loc}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
+      <section className="leisure-section">
+        <div className="leisure-btn-wrapper">
+          <button
+            className="leisure-btn"
+            onClick={() => {
+              setShowBooking(false); // ⬅ hide booking
+              setBookingOpen(true); // ⬅ open popup
+            }}
+          >
+            BOOK NOW
+          </button>
+        </div>
+      </section>
+
+      {bookingOpen &&
+        bookingDialog(
+          setBookingOpen,
+          setShowBooking,
+          cities,
+          setSelectedHotels,
+          selectedHotels
+        )}
 
       <Footer contactInfo={contactInfo} />
     </main>

@@ -1,0 +1,112 @@
+/* Banner */
+.dining-banner {
+  width: 100%;
+  height: 420px;
+  overflow: hidden;
+}
+
+.banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Title */
+.dining-heading {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 42px;
+  font-weight: 700;
+  color: #b8860b; /* Gold */
+}
+
+/* Intro paragraph */
+.dining-description {
+  width: 75%;
+  margin: 30px auto;
+  text-align: center;
+  font-size: 18px;
+  color: #444;
+  line-height: 1.6;
+}
+
+/* Sub text */
+.dining-subtext {
+  width: 80%;
+  margin: 20px auto 50px;
+  text-align: center;
+  font-size: 18px;
+  color: #333;
+  line-height: 1.5;
+}
+
+/* Grid */
+.dining-grid {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  padding: 20px 0 60px;
+}
+
+/* Cards */
+.dining-card {
+  width: 380px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.dining-img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+.dining-logo-box {
+  margin-top: -50px;
+  margin-bottom: 20px;
+}
+
+.dining-card h3 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.dining-logo {
+  width: 170px;
+  height: auto;
+}
+
+/* Button */
+.dining-btn {
+  width: 70%;
+  padding: 14px;
+  background: #cfa349;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.dining-btn:hover {
+  background: #a6781f;
+}
+
+/* Mobile View */
+@media (max-width: 768px) {
+  .dining-description,
+  .dining-subtext {
+    width: 90%;
+  }
+
+  .dining-card {
+    width: 90%;
+  }
+}

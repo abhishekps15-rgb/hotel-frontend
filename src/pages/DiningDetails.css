@@ -1,0 +1,69 @@
+.dining-details-container {
+  width: 85%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+.dining-details-title {
+  text-align: center;
+  font-size: 36px;
+  font-weight: 700;
+  color: #b8860b;
+  margin-bottom: 40px;
+}
+
+/* Two Images Side-by-Side */
+.dining-details-images {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.dining-details-images img {
+  width: 48%;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* Description Paragraph */
+.dining-details-description {
+  width: 70%;
+  margin: 0 auto;
+  text-align: justify;
+  font-size: 17px;
+  line-height: 1.7;
+  color: #444;
+  margin-bottom: 40px;
+}
+
+/* Timings & Information */
+.dining-info-section {
+  width: 70%;
+  margin: 0 auto;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #222;
+}
+
+.dining-info-section strong {
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .dining-details-images {
+    flex-direction: column;
+  }
+
+  .dining-details-images img {
+    width: 100%;
+  }
+
+  .dining-details-description,
+  .dining-info-section {
+    width: 95%;
+  }
+}

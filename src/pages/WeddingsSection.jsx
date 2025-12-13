@@ -7,10 +7,28 @@ import { FaRing, FaHeart, FaLandmark } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 
 export default function WeddingsSection() {
-  
   const location = useLocation();
   const contactInfo = location.state?.contactInfo || {};
-const items = [
+  const BASE_URL = "http://localhost:8080";
+  const [ourWeddingsData, setWeddingssData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [showBooking, setShowBooking] = useState(true);
+
+  useEffect(() => {
+    async function loadHWeddings() {
+      try {
+        const res = await fetch(`${BASE_URL}/api/weddings/`);
+        const data = await res.json();
+        setWeddingssData(data[0]); // API returns list
+      } catch (err) {
+        console.error("API error:", err);
+      }
+      setLoading(false);
+    }
+    loadHWeddings();
+  }, []);
+
+  const items = [
     {
       title: "Cocktail Soirée",
       text: `Set the tone for your wedding with an elegant cocktail night at Pride Hotels & Resorts. 
@@ -30,7 +48,8 @@ const items = [
       as you embark on your journey to "I do".`,
       image: "/assets/g2.png",
       layout: "image-left",
-    },];
+    },
+  ];
 
   const [scrolled, setScrolled] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -43,7 +62,34 @@ const items = [
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
- 
+  if (loading || !ourWeddingsData) {
+    return (
+      <main className="offers-page">
+        <HeaderBar
+          scrolled={true}
+          dropdownOpen={dropdownOpen}
+          setDropdownOpen={setDropdownOpen}
+          bgColor="#e8e8e8"
+          contactInfo={contactInfo}
+          setShowBooking={setShowBooking}
+        />
+        <div style={{ height: "180px" }} />
+        <h2 style={{ textAlign: "center" }}>Loading Destinations...</h2>
+      </main>
+    );
+  }
+
+  const {
+    id,
+    title,
+    description,
+    videoUrl,
+    bannerLines,
+    stats,
+    festivities,
+    highlights,
+  } = ourWeddingsData;
+
   return (
     <main className="offers-page">
       <HeaderBar
@@ -52,105 +98,130 @@ const items = [
         setDropdownOpen={setDropdownOpen}
         bgColor="#e8e8e8"
         contactInfo={contactInfo}
+        setShowBooking={setShowBooking}
       />
 
       {/* Spacer so content does not hide behind sticky header */}
       <div style={{ height: "140px" }}></div>
       <h1 className="section-heading">
-        <span className="line" style={{ display: "inline-block", width: "100px", height: "3px", backgroundColor: "#cfa349", marginRight: "10px", marginBottom: "10px" }} />
-        Make your Wedding Special With Us
-       <span className="line" style={{ display: "inline-block", width: "100px", height: "3px", backgroundColor: "#cfa349", marginLeft: "10px", marginBottom: "10px" }} />
-  </h1>
-      
+        <span
+          className="line"
+          style={{
+            display: "inline-block",
+            width: "100px",
+            height: "3px",
+            backgroundColor: "#cfa349",
+            marginRight: "10px",
+            marginBottom: "10px",
+          }}
+        />
+        {title}
+        <span
+          className="line"
+          style={{
+            display: "inline-block",
+            width: "100px",
+            height: "3px",
+            backgroundColor: "#cfa349",
+            marginLeft: "10px",
+            marginBottom: "10px",
+          }}
+        />
+      </h1>
+
       <section className="video-section">
-        <video width="100%" height="auto" controls>
-          <source src="/path-to-your-video.mp4" type="video/mp4" />
+        <video
+          width="100%"
+          height="auto"
+          autoPlay
+          muted
+          loop
+          playsInline
+          controls
+        >
+          <source src={BASE_URL + videoUrl} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </section>
       <section className="stats-banner">
-  <div className="stats-banner-inner">
-    
-    <div className="stat-item">
-      <h2>60</h2>
-      <p>Hotels</p>
-    </div>
+        <div className="stats-banner-inner">
+          <div className="stat-item">
+            <h2>{stats[0].value}</h2>
+            <p>{stats[0].label}</p>
+          </div>
 
-    <div className="stat-item">
-      <h2>5,500</h2>
-      <p>Rooms</p>
-    </div>
+          <div className="stat-item">
+            <h2>{stats[1].value}</h2>
+            <p>{stats[1].label}</p>
+          </div>
 
-    <div className="stat-item">
-      <h2>79+</h2>
-      <p>Grand Venues</p>
-    </div>
-
-  </div>
-</section>
-{/* ===== DESCRIPTION PARAGRAPH ===== */}
-<section className="wedding-description">
-  <p>
-    From spiritual vows in temple towns to beachside pheras, royal baraats in heritage palaces
-    to hilltop mandaps — Pride Hotels, India’s fastest-growing hospitality chain, offers the
-    country’s most diverse wedding destinations, catering to host 20 to 2,000 guests. Each year,
-    over 200 couples choose to curate their Weddings with Pride. Because when the moment is once
-    in a lifetime, your love deserves a celebration steeped in culture, care, and Indian warmth.
-  </p>
-</section>
+          <div className="stat-item">
+            <h2>{stats[2].value}</h2>
+            <p>{stats[2].label}</p>
+          </div>
+        </div>
+      </section>
+      {/* ===== DESCRIPTION PARAGRAPH ===== */}
+      <section className="wedding-description">
+        <p>{description}</p>
+      </section>
 
       <EnquiryForm />
 
       <section className="wedding-section">
-      <h2 className="wedding-title">Wedding Festivities</h2>
+        <h2 className="wedding-title">Wedding Festivities</h2>
 
-      <p className="wedding-subtitle">
-        Celebrate love in its most beautiful form, from intimate gatherings to grand receptions.
-        Whether it's a vibrant Haldi, a dreamy Mehendi, or a glamorous cocktail soirée,
-        let Pride Hotels & Resorts set the stage for your unforgettable journey.
-      </p>
+        <p className="wedding-subtitle">
+          Celebrate love in its most beautiful form, from intimate gatherings to
+          grand receptions. Whether it's a vibrant Haldi, a dreamy Mehendi, or a
+          glamorous cocktail soirée, let Pride Hotels & Resorts set the stage
+          for your unforgettable journey.
+        </p>
 
-      <div className="wedding-list">
-        {items.map((item, i) => (
-          <div
-            key={i}
-            className={`wedding-row ${
-              item.layout === "image-left" ? "reverse" : ""
-            }`}
-          >
-            {/* TEXT */}
-            <div className="wedding-text">
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
+        <div className="wedding-list">
+          {festivities.map((item, i) => (
+            <div
+              key={i}
+              className={`wedding-row ${
+                item.layout === "image-left" ? "reverse" : ""
+              }`}
+            >
+              {/* TEXT */}
+              <div className="wedding-text">
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+
+              {/* IMAGE */}
+              <div className="wedding-image">
+                <img src={BASE_URL + item.image} alt={item.title} />
+              </div>
             </div>
+          ))}
+        </div>
+      </section>
 
-            {/* IMAGE */}
-            <div className="wedding-image">
-              <img src={item.image} alt={item.title} />
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
+      <div className="wedding-strip-container">
+        <div className="wedding-strip-box">
+          <FaRing className="wedding-icon" />
+          {/* <span>🏩 India’s Large Weddings</span> */}
+          <span>India’s Large Weddings</span>
+        </div>
 
-       <div className="wedding-strip-container">
-      <div className="wedding-strip-box">
-        <FaRing className="wedding-icon" />
-        <span>India’s Large Weddings</span>
+        <div className="wedding-strip-box">
+          <FaHeart className="wedding-icon" />
+          {/* <span>🥂 Intimate Gatherings</span> */}
+          <span>Intimate Gatherings</span>
+        </div>
+
+        <div className="wedding-strip-box">
+          <FaLandmark className="wedding-icon" />
+          {/* <span>⛩️ Lavish Lawns</span> */}
+          <span>Lavish Lawns</span>
+        </div>
       </div>
 
-      <div className="wedding-strip-box">
-        <FaHeart className="wedding-icon" />
-        <span>Intimate Gatherings</span>
-      </div>
-
-      <div className="wedding-strip-box">
-        <FaLandmark className="wedding-icon" />
-        <span>Lavish Lawns</span>
-      </div>
-    </div>
-      
-            <Footer contactInfo={contactInfo}/>
+      <Footer contactInfo={contactInfo} />
     </main>
   );
 }

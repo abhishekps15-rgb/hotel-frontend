@@ -1,14 +1,36 @@
 import React, { useState, useEffect } from "react";
 import HeaderBar from "../components/HeaderBar.jsx";
-import "./OffersSection.css";
 import Footer from "../components/Footer.jsx";
 import { useLocation } from "react-router-dom";
+import "./DiningSection.css";
 
 export default function DiningSection() {
   const [scrolled, setScrolled] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const location = useLocation();
+  const [showBooking, setShowBooking] = useState(true);
   const contactInfo = location.state?.contactInfo || {};
+
+  const restaurants = [
+    {
+      id: "1",
+      title: "Café 1",
+      image: "/assets/g1.png",
+      logo: "/assets/g4.png",
+    },
+    {
+      id: "2",
+      title: "Café 2",
+      image: "/assets/g1.png",
+      logo: "/assets/g4.png",
+    },
+    {
+      id: "3",
+      title: "BHR restaurent",
+      image: "/assets/g1.png",
+      logo: "/assets/g4.png",
+    },
+  ];
   useEffect(() => {
     function handleScroll() {
       setScrolled(window.scrollY > 40);
@@ -16,41 +38,6 @@ export default function DiningSection() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const offers = [
-    {
-      id: 1,
-      title: "PERFECT STAYCATIONS – THIS JOYFUL SEASON",
-      desc: "This holiday season, enjoy the perfect staycation with exclusive savings crafted just for you.",
-      validity: "04 Dec 2025 – 11 Jan 2026",
-      img: "/assets/g1.png",
-      loginBtn: "LOGIN / JOIN"
-    },
-    {
-      id: 2,
-      title: "SUITE SURPRISES - MEMBER ONLY",
-      desc: "Indulge in a stay that goes beyond the ordinary and experience enhanced comfort, added space, thoughtful touches and unparalleled extravagance.",
-      validity: "Round the Year",
-      img: "/assets/g2.png",
-      loginBtn: "LOGIN / JOIN"
-    },
-    {
-      id: 1,
-      title: "PERFECT STAYCATIONS – THIS JOYFUL SEASON",
-      desc: "This holiday season, enjoy the perfect staycation with exclusive savings crafted just for you.",
-      validity: "04 Dec 2025 – 11 Jan 2026",
-      img: "/assets/g1.png",
-      loginBtn: "LOGIN / JOIN"
-    },
-    {
-      id: 2,
-      title: "SUITE SURPRISES - MEMBER ONLY",
-      desc: "Indulge in a stay that goes beyond the ordinary and experience enhanced comfort, added space, thoughtful touches and unparalleled extravagance.",
-      validity: "Round the Year",
-      img: "/assets/g2.png",
-      loginBtn: "LOGIN / JOIN"
-    }
-  ];
 
   return (
     <main className="offers-page">
@@ -60,21 +47,87 @@ export default function DiningSection() {
         setDropdownOpen={setDropdownOpen}
         bgColor="#e8e8e8"
         contactInfo={contactInfo}
+        setShowBooking={setShowBooking}
       />
 
       {/* Spacer so content does not hide behind sticky header */}
       <div style={{ height: "140px" }}></div>
-      
-        <h1 className="section-heading"> <span className="line" style={{ display: "inline-block", width: "100px", height: "3px", backgroundColor: "#cfa349", marginRight: "10px", marginBottom: "10px" }} />
-        EXCLUSIVE OFFERS
-        <span className="line" style={{ display: "inline-block", width: "100px", height: "3px", backgroundColor: "#cfa349", marginRight: "10px", marginBottom: "10px" }} />
-       </h1>
 
-      <section className="offers-section">
-        
+      <h1 className="section-heading">
+        {" "}
+        <span
+          className="line"
+          style={{
+            display: "inline-block",
+            width: "100px",
+            height: "3px",
+            backgroundColor: "#cfa349",
+            marginRight: "10px",
+            marginBottom: "10px",
+          }}
+        />
+        EXCLUSIVE OFFERS
+        <span
+          className="line"
+          style={{
+            display: "inline-block",
+            width: "100px",
+            height: "3px",
+            backgroundColor: "#cfa349",
+            marginRight: "10px",
+            marginBottom: "10px",
+          }}
+        />
+      </h1>
+
+      <section className="dining-banner">
+        <img
+          src="/assets/g1.png"
+          alt="Dining Banner"
+          className="banner-image"
+        />
       </section>
-      
-            <Footer contactInfo={contactInfo} />
+
+      <h1 className="dining-heading">Dine With Us</h1>
+      <p className="dining-description">
+        Our varied dining options coupled with well-appointed rooms, elegantly
+        designed banquet spaces, numerous recreational facilities and seamless
+        service tailored to suit your every whim, add a special touch to all
+        your occasions.
+      </p>
+
+      <p className="dining-subtext">
+        With so much to offer, we take pride in delivering exceptional dining
+        experiences!
+        <br />
+        From speciality restaurants and coffee shops to bakeries and more, we
+        have all you need for an ideal culinary journey.
+      </p>
+
+      <section className="dining-grid">
+        {restaurants.map((item, i) => (
+          <div key={i} className="dining-card">
+            <img src={item.image} alt={item.title} className="dining-img" />
+
+            <div className="dining-logo-box">
+              <img src={item.logo} alt={item.title} className="dining-logo" />
+            </div>
+
+            <h3>{item.title}</h3>
+
+            <button
+              className="dining-btn"
+              onClick={() => navigate(`/dining/${item.id}`)}
+            >
+              MORE INFO
+            </button>
+          </div>
+        ))}
+      </section>
+
+      <section className="offers-section"></section>
+
+      <Footer contactInfo={contactInfo} />
     </main>
   );
 }

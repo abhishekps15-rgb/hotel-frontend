@@ -12,6 +12,7 @@ export default function OffersSection() {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
   const contactInfo = location.state?.contactInfo || {};
+  const [showBooking, setShowBooking] = useState(true);
   const BASE_URL = "http://localhost:8080";
   useEffect(() => {
     function handleScroll() {
@@ -21,9 +22,6 @@ export default function OffersSection() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  /* ======================================================
-     FETCH OFFERS FROM BACKEND /api/offers
-  ====================================================== */
   useEffect(() => {
     async function loadOffers() {
       try {
@@ -34,26 +32,6 @@ export default function OffersSection() {
         setOffers(data);
       } catch (err) {
         console.error("Offers API Error → Using fallback", err);
-
-        // FALLBACK DATA IF API FAILS
-        setOffers([
-          {
-            id: 1,
-            title: "PERFECT STAYCATIONS – THIS JOYFUL SEASON",
-            desc: "This holiday season, enjoy the perfect staycation with exclusive savings crafted just for you.",
-            validity: "04 Dec 2025 – 11 Jan 2026",
-            img: "/assets/g1.png",
-            loginBtn: "LOGIN / JOIN",
-          },
-          {
-            id: 2,
-            title: "SUITE SURPRISES - MEMBER ONLY",
-            desc: "Indulge in a stay that goes beyond the ordinary...",
-            validity: "Round the Year",
-            img: "/assets/g2.png",
-            loginBtn: "LOGIN / JOIN",
-          },
-        ]);
       } finally {
         setLoading(false);
       }
@@ -70,6 +48,7 @@ export default function OffersSection() {
         setDropdownOpen={setDropdownOpen}
         bgColor="#e8e8e8"
         contactInfo={contactInfo}
+        setShowBooking={setShowBooking}
       />
 
       {/* Spacer so content does not hide behind sticky header */}
