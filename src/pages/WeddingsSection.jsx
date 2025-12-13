@@ -169,17 +169,14 @@ export default function WeddingsSection() {
       <EnquiryForm />
 
       <section className="wedding-section">
-        <h2 className="wedding-title">Wedding Festivities</h2>
+        <h2 className="wedding-title">{festivities.title}</h2>
 
         <p className="wedding-subtitle">
-          Celebrate love in its most beautiful form, from intimate gatherings to
-          grand receptions. Whether it's a vibrant Haldi, a dreamy Mehendi, or a
-          glamorous cocktail soirée, let Pride Hotels & Resorts set the stage
-          for your unforgettable journey.
+          {festivities.description}
         </p>
 
         <div className="wedding-list">
-          {festivities.map((item, i) => (
+          {festivities.festivitiesList.map((item, i) => (
             <div
               key={i}
               className={`wedding-row ${
@@ -194,7 +191,7 @@ export default function WeddingsSection() {
 
               {/* IMAGE */}
               <div className="wedding-image">
-                <img src={BASE_URL + item.image} alt={item.title} />
+                <img src={BASE_URL + item.imageUrl} alt={item.title} />
               </div>
             </div>
           ))}
