@@ -1,0 +1,90 @@
+.slider-wrapper {
+  width: 90%;
+  height: 75vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  filter: blur(0px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* BLUR BACKGROUND OVERLAY */
+.slider-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+/* MAIN IMAGE CARD */
+.slider-card {
+  position: relative;
+  width: 70%;
+  max-width: 1000px;
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  z-index: 5;
+}
+
+.slider-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ARROWS */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: white;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  padding: 12px 14px;
+  border-radius: 50%;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  color: #333;
+  transition: 0.2s;
+}
+
+.arrow:hover {
+  background: #f1f1f1;
+}
+
+.left {
+  left: 8%;
+}
+
+.right {
+  right: 8%;
+}
+
+/* DOTS */
+.dots {
+  position: absolute;
+  bottom: 20px;
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  background: #ddd;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.dot.active {
+  background: white;
+  transform: scale(1.3);
+}

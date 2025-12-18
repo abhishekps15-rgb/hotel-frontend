@@ -14,6 +14,7 @@ export default function OffersSection() {
   const contactInfo = location.state?.contactInfo || {};
   const [showBooking, setShowBooking] = useState(true);
   const BASE_URL = "http://localhost:8080";
+
   useEffect(() => {
     function handleScroll() {
       setScrolled(window.scrollY > 40);

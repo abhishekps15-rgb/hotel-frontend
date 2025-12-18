@@ -1,34 +1,86 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FaTimes } from "react-icons/fa";
 import "./BookingSearchBox.css";
 
 export default function BookingSearchBox() {
+  const BASE_URL = "http://localhost:8080";
+
+  const [locations, setLocations] = useState([]); // API cities list
+  const [selectedLocation, setSelectedLocation] = useState("");
+  const [hotels, setHotels] = useState([]);
+
+  // Load locations from API
+  useEffect(() => {
+    async function loadLocations() {
+      try {
+        const res = await fetch(`${BASE_URL}/api/cities/`);
+        const data = await res.json();
+
+        setLocations(data); // store entire city list
+      } catch (err) {
+        console.error("Cities API Error:", err);
+      }
+    }
+
+    loadLocations();
+  }, []);
+
+  // When user selects location → load hotels
+  useEffect(() => {
+    if (!selectedLocation) {
+      setHotels([]);
+      return;
+    }
+
+    const matchedCity = locations.find(
+      (c) => c.name.toLowerCase() === selectedLocation.toLowerCase()
+    );
+
+    setHotels(matchedCity ? matchedCity.hotels : []);
+  }, [selectedLocation, locations]);
+
   return (
     <div className="booking-box-container">
       <div className="booking-box">
         <div className="booking-row">
-          {/* Location */}
+          {/* Location Dropdown */}
           <div className="field-group">
             <label>Location</label>
-            <select className="input-select">
-              <option>Select Your Destination</option>
-              <option>Goa</option>
-              <option>Delhi</option>
-              <option>Mumbai</option>
+            <select
+              className="input-select"
+              value={selectedLocation}
+              onChange={(e) => setSelectedLocation(e.target.value)}
+            >
+              <option value="">Select Your Destination</option>
+
+              {locations.map((loc) => (
+                <option key={loc.id} value={loc.name}>
+                  {/* {loc.name} ({loc.state}) */}
+                  {loc.name}
+                </option>
+              ))}
             </select>
           </div>
 
-          {/* Hotel */}
+          {/* Hotel Dropdown */}
           <div className="field-group">
             <label>Hotel</label>
             <select className="input-select">
-              <option>Select Your Pride Hotel</option>
-              <option>BHR Plaza</option>
-              <option>BHR Resort</option>
+              <option value="">Select Your Pride Hotel</option>
+
+              {hotels.length > 0 ? (
+                hotels.map((hotel, index) => (
+                  <option key={index} value={hotel.name}>
+                    {hotel.name}
+                  </option>
+                ))
+              ) : (
+                <option disabled>No hotels available</option>
+              )}
             </select>
           </div>
 
-          {/* Why Book Direct + Button */}
+          {/* Booking Section */}
           <div className="booking-actions">
             <div className="why-book">Why Book Direct?</div>
             <button className="booking-btn">BOOK NOW</button>

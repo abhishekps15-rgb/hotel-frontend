@@ -81,8 +81,8 @@ const FALLBACK = {
     ],
   },
   brandBanner: {
-    title: "TRULY INDIAN. TRADITIONALLY LUXURIOUS.",
-    subtitle: "Leading Hotel Chain Group in India",
+    title: "Elegance Crafted With Indian Soul",
+    subtitle: "A seamless blend of heritage, culture, and world-class comfort.",
     contacts: [
       {
         type: "phone",

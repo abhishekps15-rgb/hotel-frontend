@@ -4,6 +4,7 @@ import "./EventsSection.css";
 import Footer from "../components/Footer.jsx";
 import { useLocation } from "react-router-dom";
 import BanquetSlider from "../components/BanquetSlider.jsx";
+import ModernSlider from "../components/ModernSlider.jsx";
 
 export default function EventsSection() {
   const [scrolled, setScrolled] = useState(false);
@@ -19,40 +20,10 @@ export default function EventsSection() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const offers = [
-    {
-      id: 1,
-      title: "PERFECT STAYCATIONS – THIS JOYFUL SEASON",
-      desc: "This holiday season, enjoy the perfect staycation with exclusive savings crafted just for you.",
-      validity: "04 Dec 2025 – 11 Jan 2026",
-      img: "/assets/g1.png",
-      loginBtn: "LOGIN / JOIN",
-    },
-    {
-      id: 2,
-      title: "SUITE SURPRISES - MEMBER ONLY",
-      desc: "Indulge in a stay that goes beyond the ordinary and experience enhanced comfort, added space, thoughtful touches and unparalleled extravagance.",
-      validity: "Round the Year",
-      img: "/assets/g2.png",
-      loginBtn: "LOGIN / JOIN",
-    },
-    {
-      id: 1,
-      title: "PERFECT STAYCATIONS – THIS JOYFUL SEASON",
-      desc: "This holiday season, enjoy the perfect staycation with exclusive savings crafted just for you.",
-      validity: "04 Dec 2025 – 11 Jan 2026",
-      img: "/assets/g1.png",
-      loginBtn: "LOGIN / JOIN",
-    },
-    {
-      id: 2,
-      title: "SUITE SURPRISES - MEMBER ONLY",
-      desc: "Indulge in a stay that goes beyond the ordinary and experience enhanced comfort, added space, thoughtful touches and unparalleled extravagance.",
-      validity: "Round the Year",
-      img: "/assets/g2.png",
-      loginBtn: "LOGIN / JOIN",
-    },
+  const slides = [
+    "/assets/jim-cor.jpg",
+    "/assets/mussorie.jpg",
+    "/assets/rishikesh.jpg",
   ];
 
   return (
@@ -97,7 +68,8 @@ export default function EventsSection() {
       </h1>
 
       <div className="offers-section">
-        <BanquetSlider />
+        {/* <BanquetSlider /> */}
+        <ModernSlider images={slides} autoPlay={true} interval={4000} />;
       </div>
 
       {eventsSection()}
