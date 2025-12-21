@@ -8,6 +8,7 @@ import { bookingDialog } from "../components/bookingDialog.jsx";
 import { useNavigate } from "react-router-dom";
 
 export default function OurHotelsSection() {
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   const [scrolled, setScrolled] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -22,8 +23,6 @@ export default function OurHotelsSection() {
   const [ourHotelsData, setOurHotelsData] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-
-  const BASE_URL = "http://localhost:8080";
 
   useEffect(() => {
     async function loadHotels() {

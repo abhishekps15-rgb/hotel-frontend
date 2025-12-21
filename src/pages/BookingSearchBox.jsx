@@ -3,7 +3,7 @@ import { FaTimes } from "react-icons/fa";
 import "./BookingSearchBox.css";
 
 export default function BookingSearchBox() {
-  const BASE_URL = "http://localhost:8080";
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   const [locations, setLocations] = useState([]); // API cities list
   const [selectedLocation, setSelectedLocation] = useState("");

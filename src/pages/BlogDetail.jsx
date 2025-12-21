@@ -21,7 +21,7 @@ export default function BlogDetail() {
 
   const { slug } = useParams();
   //   const [blog, setBlog] = useState(null);
-  const BASE_URL = "http://localhost:8080";
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
     async function loadBlog() {
@@ -38,12 +38,7 @@ export default function BlogDetail() {
     <div className="blog-detail-container">
       <h1 className="blog-title">{blog.title}</h1>
 
-      <img
-        // src={BASE_URL + blog.image}
-        src={blog.image}
-        alt={blog.title}
-        className="blog-detail-image"
-      />
+      <img src={blog.image} alt={blog.title} className="blog-detail-image" />
 
       <div className="blog-meta">
         <span className="blog-category">{blog.category}</span>

@@ -5,7 +5,7 @@ import "./DiningDetails.css";
 export default function DiningDetails() {
   const { restaurantId } = useParams();
 
-  const BASE_URL = "http://localhost:8080";
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   // Static mapping — replace with API later
   const diningData = {
@@ -54,7 +54,7 @@ export default function DiningDetails() {
       {/* Two-Image Layout */}
       <div className="dining-details-images">
         {item.images.map((img, i) => (
-          <img key={i} src={BASE_URL + img} alt="" />
+          <img key={i} src={img} alt="" />
         ))}
       </div>
 

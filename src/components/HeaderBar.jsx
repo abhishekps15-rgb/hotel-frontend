@@ -12,6 +12,7 @@ export default function HeaderBar({
   contactInfo = {},
   setShowBooking,
 }) {
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   const [cityModalOpen, setCityModalOpen] = useState(false);
   const [selectedCity, setSelectedCity] = useState("");
   const [cityHotels, setCityHotels] = useState([]);
@@ -23,11 +24,8 @@ export default function HeaderBar({
   const dropdownRef = useRef(null);
   const [bookingOpen, setBookingOpen] = useState(false);
 
-  // ------------------------------------------------------------------
-  // 1️⃣  FETCH CITIES FROM API
-  // ------------------------------------------------------------------
   useEffect(() => {
-    fetch("http://localhost:8080/api/cities/")
+    fetch(BASE_URL + "/api/cities/")
       .then((res) => res.json())
       .then((data) => {
         setCities(data);
@@ -35,9 +33,6 @@ export default function HeaderBar({
       .catch((err) => console.error("Error loading cities:", err));
   }, []);
 
-  // ------------------------------------------------------------------
-  // 2️⃣ OPEN CITY MODAL ON CITY CLICK
-  // ------------------------------------------------------------------
   const openCityDialog = (cityObj) => {
     setSelectedCity(cityObj.name);
     setCityHotels(cityObj.hotels);

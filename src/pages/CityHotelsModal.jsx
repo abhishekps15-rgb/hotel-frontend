@@ -2,7 +2,7 @@ import "./CityModal.css";
 import { FaTimes } from "react-icons/fa";
 
 export default function CityHotelsModal({ open, onClose, city, hotels }) {
-  const BASE_URL = "http://localhost:8080";
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   if (!open) return null;
 
   return (
@@ -18,7 +18,7 @@ export default function CityHotelsModal({ open, onClose, city, hotels }) {
           {hotels.map((hotel, i) => (
             <div key={i} className="hotel-card">
               <img
-                src={`${BASE_URL}${hotel.imageUrl}`}
+                src={`${hotel.imageUrl}`}
                 alt={hotel.name}
                 className="modal-image"
               />

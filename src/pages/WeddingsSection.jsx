@@ -9,7 +9,7 @@ import { useLocation } from "react-router-dom";
 export default function WeddingsSection() {
   const location = useLocation();
   const contactInfo = location.state?.contactInfo || {};
-  const BASE_URL = "http://localhost:8080";
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   const [ourWeddingsData, setWeddingssData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showBooking, setShowBooking] = useState(true);
@@ -139,7 +139,7 @@ export default function WeddingsSection() {
           playsInline
           controls
         >
-          <source src={BASE_URL + videoUrl} type="video/mp4" />
+          <source src={videoUrl} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </section>
@@ -189,7 +189,7 @@ export default function WeddingsSection() {
 
               {/* IMAGE */}
               <div className="wedding-image">
-                <img src={BASE_URL + item.imageUrl} alt={item.title} />
+                <img src={item.imageUrl} alt={item.title} />
               </div>
             </div>
           ))}

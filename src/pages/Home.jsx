@@ -100,7 +100,7 @@ const FALLBACK = {
 };
 
 export default function Home() {
-  const API_BASE_URL = "https://hotel-backend-w0cj.onrender.com";
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   const [home, setHome] = useState(FALLBACK);
   const [loading, setLoading] = useState(true);
   const wrapperRef = useRef(null);
@@ -149,7 +149,7 @@ export default function Home() {
   useEffect(() => {
     async function load() {
       try {
-        const res = await fetch(`${API_BASE_URL}/api/home`);
+        const res = await fetch(`${BASE_URL}/api/home`);
         if (!res.ok) throw new Error("API failed");
         const data = await res.json();
 
@@ -463,10 +463,7 @@ export default function Home() {
 
           {/* Right */}
           <div className="side-card">
-            <img
-              src={"http://localhost:8080" + right.imageUrl}
-              className="side-img"
-            />
+            <img src={right.imageUrl} className="side-img" />
             <div className="side-border" />
             <div className="side-label">{right.title}</div>
             <button

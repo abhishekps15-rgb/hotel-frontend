@@ -106,6 +106,7 @@ const FALLBACK = {
 };
 
 export default function HotelDetails() {
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   const [home, setHome] = useState(FALLBACK);
   const [loading, setLoading] = useState(true);
   const wrapperRef = useRef(null);
@@ -227,13 +228,11 @@ export default function HotelDetails() {
   useEffect(() => {
     async function load() {
       try {
-        const res = await fetch("http://localhost:8080/api/home");
+        const res = await fetch(BASE_URL + "/api/home");
         if (!res.ok) throw new Error("API failed");
         const data = await res.json();
 
-        data.heroImages = data.heroImages.map(
-          (imgUrl) => "http://localhost:8080" + imgUrl
-        );
+        data.heroImages = data.heroImages.map((imgUrl) => imgUrl);
 
         setHome({
           heroImages: data.heroImages || FALLBACK.heroImages,

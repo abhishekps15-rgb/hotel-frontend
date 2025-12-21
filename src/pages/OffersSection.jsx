@@ -13,7 +13,7 @@ export default function OffersSection() {
   const location = useLocation();
   const contactInfo = location.state?.contactInfo || {};
   const [showBooking, setShowBooking] = useState(true);
-  const BASE_URL = "http://localhost:8080";
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
     function handleScroll() {
@@ -92,7 +92,7 @@ export default function OffersSection() {
               <div key={offer.id} className="offer-card">
                 {/* IMAGE */}
                 <img
-                  src={`${BASE_URL}${offer.img}`}
+                  src={`${offer.img}`}
                   alt={offer.title}
                   className="offer-img"
                 />
