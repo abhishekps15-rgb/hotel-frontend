@@ -2221,3 +2221,16 @@ input:focus {
     width: 100%;
   }
 }
+
+.coming-soon-tag {
+  padding: 6px 12px;
+  margin-right: 20px;
+  background: #000;
+  color: #cfa349;
+  font-weight: 600;
+  border-radius: 4px;
+  font-size: 20px;
+  border: 1px solid #cfa349;
+}
+
+

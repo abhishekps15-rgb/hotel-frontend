@@ -193,7 +193,7 @@ export default function HeaderBar({
           {/* <button className="hamburger-btn" onClick={toggleMenu}>
             <FaBars />
           </button> */}
-
+          <div class="coming-soon-tag">COMING SOON</div>
           <button
             className="book-now"
             onClick={() => {
